@@ -22,16 +22,17 @@ router.get('/usertweets/:user', function (req, res, next) {
                 // include_rts:false,
                 // exclude_replies:true,
             }, function (err, tweets, response) {
-                if(err) console.log(err)
+                if(err) return res.json(err)
                 const filteredTweets = tweets.map(tweet => {
-                    return {
-                        created_at: tweet.created_at,
-                        text: tweet.full_text,
-                        profile_banner_url: tweet.user.profile_banner_url,
-                        profile_image_url: tweet.user.profile_image_url
-                    }
-                });
-            res.json(filteredTweets)
+                        return {
+                            created_at: tweet.created_at,
+                            text: tweet.full_text,
+                            profile_banner_url: tweet.user.profile_banner_url,
+                            profile_image_url: tweet.user.profile_image_url
+                        }
+                    });
+                return res.json(filteredTweets)
+                               
     })
 });
 
