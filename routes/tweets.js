@@ -16,7 +16,7 @@ const Twitter = new Twit(twitConfig);
 router.get('/usertweets/:user', function (req, res, next) {
     Twitter.get('statuses/user_timeline', {
                 screen_name: req.params.user,
-                //count: 30,
+                count: 300,
                 tweet_mode:'extended',
                 include_entities:false,
                 // include_rts:false,
