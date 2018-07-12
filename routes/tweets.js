@@ -24,12 +24,14 @@ router.get('/usertweets/:user', function (req, res, next) {
             }, function (err, tweets, response) {
                 if(err) return res.json(err)
                 const filteredTweets = tweets.map(tweet => {
-                        return {
+                       const filtered = {
                             created_at: tweet.created_at,
                             text: tweet.full_text,
                             profile_banner_url: tweet.user.profile_banner_url,
                             profile_image_url: tweet.user.profile_image_url
                         }
+                       if(tweet.extended_entities) filtered.post_image = tweet.extended_entities.media[0].media_url
+                    return filtered;
                     });
                 return res.json(filteredTweets)
                                
